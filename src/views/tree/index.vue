@@ -12,11 +12,15 @@
       <el-button @click="displayForChord">
         {{ displayChordText }}
       </el-button>
+      <el-button @click="play">
+        {{ activeNumber }}
+      </el-button>
       <br><br><br><br><br>
+      <h1 style="text-align: center">{{ score.name }}</h1>
     </div>
     <!--歌谱内容-->
     <div class="body">
-      <sections :sections="score.sections" :tone="score.key" :display-chord="displayChord"/>
+      <sections :sections="score.sections" :tone="score.key" :display-chord="displayChord" :active="activeNumber"/>
     </div>
 
     <div class="footer">{{ footer }}</div>
@@ -39,6 +43,7 @@ export default {
       }, {
         value: 'E'
       }],
+      activeNumber: -1,
       displayChord: false,
       displayChordText: '和弦',
       header: '我是header',
@@ -52,9 +57,7 @@ export default {
     ])
   },
   watch: {
-    filterText(val) {
-      this.$refs.tree2.filter(val)
-    }
+
   },
   created() {
     this.fetchData()
@@ -83,11 +86,17 @@ export default {
      */
     transChord(key) {
       this.score.key = key
+    },
+    /**
+     * 播放
+     */
+    play() {
+      this.activeNumber += 1
     }
   }
 }
 </script>
 
 <style rel='stylesheet/scss' scoped>
-  
+
 </style>
