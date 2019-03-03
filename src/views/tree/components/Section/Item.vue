@@ -66,8 +66,8 @@ export default {
       default: ''
     },
     section: {
-      type: Array,
-      default: Array
+      type: Object,
+      default: Object
     }
   },
   data() {
@@ -139,6 +139,6 @@ export default {
   .lyric {
   }
   .active {
-    background-color: #99a9bf;
+    background-color: aliceblue;
   }
 </style>
