@@ -7,12 +7,14 @@
         style="border: dotted; width: 80px; text-align:center; font-size: x-large;font-weight: bold"
       >{{ section.type }}</div>
     </div>
+
+    <!--中间区域-->
     <div :class="{ active: isActive }">
       <!--和弦-->
       <div>
         <ul class="chords">
           <li v-for="chord in section.chords" :key="chord.id">
-            <div class="chord">{{ getChords(tone, chord) }}</div>
+            <div class="chord">{{ getChords(tonic, chord) }}</div>
           </li>
         </ul>
       </div>
@@ -35,6 +37,7 @@
         </ul>
       </div>
     </div>
+    {{ index }}
     <!--段落间空行-->
     <div>
       <br><!--空行-->
@@ -61,34 +64,74 @@ export default {
       type: Boolean,
       default: false
     },
-    tone: {
+    tonic: {
       type: String,
       default: ''
+    },
+    beats: {
+      type: Number,
+      default: 0
     },
     section: {
       type: Object,
       default: Object
+    },
+    beatPerMs: {
+      type: Number,
+      default: -1
     }
   },
   data() {
     return {
       number: this.myNumber,
-      isActive: false
+      isActive: false,
+      timer: null,
+      index: 0
     }
   },
   watch: {
+    /**
+     * 监听active看是否播放到当前小节
+     */
     active: function(value) {
-      console.log('active:' + value)
-      this.isActive = value === this.number
-    },
-    section: function(value) {
-      console.log('section:' + value)
+      this.isActive = this.number === value
+      if (this.isActive) {
+        console.log('Bars active :' + this.number)
+      }
+      // 播放当前小节时，按节拍
+      if (this.isActive) {
+        this.beatStart()
+      }
     }
   },
   created() {
-    console.log('created')
+    console.log('Bars created :' + this.number)
   },
   methods: {
+    /**
+     * 节拍开始
+     */
+    beatStart() {
+      this.beat()
+      this.timer = setInterval(this.beat, this.beatPerMs)
+    },
+    /**
+     * 每拍调用
+     */
+    beat() {
+      this.index++
+      console.log('section :' + this.number + ' dang dang dang dang')
+      if (this.index >= this.beats) {
+        this.beatStop()
+      }
+    },
+    /**
+     * 节拍停止
+     */
+    beatStop() {
+      clearInterval(this.timer)
+      this.index = 0
+    },
     /**
      * 级数转和弦
      */

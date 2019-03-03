@@ -22,9 +22,9 @@ export default {
       name: '我们的故事',
       author: '当',
       key: 'A',
-      beat: '4',
-      note: '4',
-      velocity: '88',
+      beat: 4,
+      note: 4,
+      velocity: 88,
       doKey: '4s0f',
       sections: [
         {

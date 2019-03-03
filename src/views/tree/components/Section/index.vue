@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="(section, index) in sections" :key="section.id" class="section">
-      <Bars :section="section" :tone="tone" :display-chord="displayChord" :active="active" :my-number="index"/>
+    <div v-for="(section, index) in score.sections" :key="section.id" class="section">
+      <Bars :section="section" :tonic="score.type" :beat-per-ms="beatPerMs" :beats="score.beat" :display-chord="displayChord" :active="active" :my-number="index"/>
     </div>
   </div>
 </template>
@@ -23,22 +23,21 @@ export default {
       type: Boolean,
       default: false
     },
-    tone: {
-      type: String,
-      default: ''
+    score: {
+      type: Object,
+      default: Object
     },
-    sections: {
-      type: Array,
-      default: Array
+    beatPerMs: {
+      type: Number,
+      default: -1
     }
   },
   data() {
     return {
-      myNO: 0
     }
   },
   created() {
-    console.log('created')
+    console.log('Sections created')
   }
 }
 </script>
