@@ -16,7 +16,8 @@
         :beats="score.beat"
         :display-chord="displayChord"
         :class="{ active: index === active }"
-        :active="active"/>
+        :active="active"
+        @beat="beat"/>
       <!--段落间空行-->
       <div>
         <br><!--空行-->
@@ -58,7 +59,13 @@ export default {
   },
   created() {
     console.log('Sections created')
+  },
+  methods: {
+    beat: function() {
+      this.$emit('beat')
+    }
   }
+
 }
 </script>
 

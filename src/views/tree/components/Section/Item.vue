@@ -111,7 +111,8 @@ export default {
      */
     beat() {
       this.index++
-      console.log('section :' + this.number + ' dang dang dang dang')
+      this.$emit('beat')
+      console.log('section :' + this.number + '-' + this.index + ' da')
       if (this.index >= this.beats) {
         this.beatStop()
       }
@@ -121,6 +122,7 @@ export default {
      */
     beatStop() {
       clearInterval(this.timer)
+      this.isActive = false
       this.index = -1
     },
     /**

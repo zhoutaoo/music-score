@@ -17,6 +17,8 @@
         <el-button @click="stop">停止</el-button>
       </el-button-group>
 
+      <jingle v-show="false" ref="jingle"/>
+
     </div>
     <br><br>
     <!--歌谱头标题等-->
@@ -31,7 +33,12 @@
     </div>
     <!--歌谱内容-->
     <div class="body">
-      <sections :score="score" :beat-per-ms="beatPerMs()" :display-chord="displayChord" :active="activeNumber"/>
+      <sections
+        :score="score"
+        :beat-per-ms="beatPerMs()"
+        :display-chord="displayChord"
+        :active="activeNumber"
+        @beat="beat"/>
     </div>
 
     <div class="footer">{{ footer }}</div>
@@ -41,13 +48,15 @@
 <script>
 import { getInfo } from '@/api/score'
 import { Sections } from './components'
+import { Jingle } from './components'
 import { mapGetters } from 'vuex'
 
 const MINUTE = 60000
 
 export default {
   components: {
-    Sections
+    Sections,
+    Jingle
   },
   data() {
     return {
@@ -124,7 +133,7 @@ export default {
      */
     nextBeat() {
       this.activeNumber += 1
-      if (this.activeNumber > this.score.sections.length) {
+      if (this.activeNumber >= this.score.sections.length) {
         this.stop()
       }
     },
@@ -139,11 +148,13 @@ export default {
      * 停止播放
      */
     stop() {
+      clearInterval(this.player)
       this.activeNumber = -1
       this.played = false
-      clearInterval(this.player)
+    },
+    beat() {
+      this.$refs.jingle.play()
     }
-
   }
 }
 </script>

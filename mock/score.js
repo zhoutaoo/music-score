@@ -24,7 +24,7 @@ export default {
       key: 'A',
       beat: 4,
       note: 4,
-      velocity: 88,
+      velocity: 104,
       doKey: '4s0f',
       sections: [
         {
