@@ -1,7 +1,27 @@
 <template>
   <div>
     <div v-for="(section, index) in score.sections" :key="section.id" class="section">
-      <Bars :section="section" :tonic="score.type" :beat-per-ms="beatPerMs" :beats="score.beat" :display-chord="displayChord" :active="active" :my-number="index"/>
+      <div>
+        <!--主副歌段落标识-->
+        <div
+          v-if="section.type"
+          style="border: dotted; width: 80px; text-align:center; font-size: x-large;font-weight: bold"
+        >{{ section.type }}</div>
+      </div>
+      <Bars
+        :section-id="index"
+        :section="section"
+        :tonic="score.key"
+        :beat-per-ms="beatPerMs"
+        :beats="score.beat"
+        :display-chord="displayChord"
+        :class="{ active: index === active }"
+        :active="active"/>
+      <!--段落间空行-->
+      <div>
+        <br><!--空行-->
+        <br><!--空行-->
+      </div>
     </div>
   </div>
 </template>
@@ -46,5 +66,8 @@ export default {
   .section {
     display: inline-block;
     min-width: 25%;
+  }
+  .active {
+    background-color: aliceblue;
   }
 </style>

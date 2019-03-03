@@ -1,23 +1,33 @@
 <template>
   <div class="app-container">
+    <div>
+      <div style="display: inline-block; vertical-align: middle; padding-right: 5px">
+        <el-select v-model="score.key" placeholder="请选择" style="width: 60px;" @change="transChord">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"/>
+        </el-select>
+        <el-button type="primary" @click="displayForChord">{{ displayChord ? "级数" : "和弦" }}</el-button>
+      </div>
+
+      <el-button-group>
+        <el-button type="primary" @click="startAndStop">{{ played ? "暂停" : "开始" }}</el-button>
+        <el-button @click="stop">停止</el-button>
+      </el-button-group>
+
+    </div>
+    <br><br>
     <!--歌谱头标题等-->
-    <div class="header">{{ header }} <br>
-
-      <el-select v-model="score.key" placeholder="请选择" style="width: 60px;" @change="transChord">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"/>
-      </el-select>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <el-button @click="displayForChord">{{ displayChord ? "级数" : "和弦" }}</el-button>
-      <el-button @click="startAndStop">{{ played ? "暂停" : "开始" }}</el-button>
-      <el-button @click="stop">停止</el-button>
-      {{ activeNumber }}
-
-      <br><br><br><br><br>
+    <div class="header">
       <h1 style="text-align: center">{{ score.name }}</h1>
+      <h2>{{ score.enName }}</h2>
+      <div><h4>调式 : {{ score.key }}</h4></div>
+      <div><h4>拍子 : {{ score.beat }}/{{ score.note }}</h4></div>
+      <div><h4>速度 : {{ score.velocity }}</h4></div>
+
+      <br>
     </div>
     <!--歌谱内容-->
     <div class="body">

@@ -1,20 +1,12 @@
 <template>
   <div>
-    <div>
-      <!--主副歌段落标识-->
-      <div
-        v-if="section.type"
-        style="border: dotted; width: 80px; text-align:center; font-size: x-large;font-weight: bold"
-      >{{ section.type }}</div>
-    </div>
-
     <!--中间区域-->
     <div :class="{ active: isActive }">
       <!--和弦-->
       <div>
         <ul class="chords">
-          <li v-for="chord in section.chords" :key="chord.id">
-            <div class="chord">{{ getChords(tonic, chord) }}</div>
+          <li v-for="(chord, i) in section.chords" :key="chord.id" :class="{ beaton : index === i }">
+            <div class="chord">{{ getChords(tonic, chord) | nullToBlank }}</div>
           </li>
         </ul>
       </div>
@@ -22,8 +14,8 @@
       <div v-for="record in section.records" :key="record.id" class="record">
         <!--弹奏谱-->
         <ul>
-          <li v-for="item in record" :key="item.id">
-            <div class="beat">{{ item }}</div>
+          <li v-for="(item, i) in record" :key="item.id" :class="{ beaton : index === i }">
+            <div class="beat">{{ item | nullToBlank }}</div>
           </li>
         </ul>
       </div>
@@ -31,17 +23,11 @@
       <div>
         <!--歌词-->
         <ul class="lyric">
-          <li v-for="beat in section.lyric" :key="beat.id">
-            <div class="beat">{{ beat }}</div>
+          <li v-for="(beat, i ) in section.lyric" :key="beat.id" :class="{ beaton : index === i }">
+            <div class="beat">{{ beat | nullToBlank }}</div>
           </li>
         </ul>
       </div>
-    </div>
-    {{ index }}
-    <!--段落间空行-->
-    <div>
-      <br><!--空行-->
-      <br><!--空行-->
     </div>
   </div>
 </template>
@@ -51,12 +37,17 @@ import { getChords } from '@/utils/music'
 
 export default {
   name: 'Bars',
+  filters: {
+    nullToBlank: function(value) {
+      return !value ? '　' : value
+    }
+  },
   props: {
     active: {
       type: Number,
       default: -1
     },
-    myNumber: {
+    sectionId: {
       type: Number,
       default: 0
     },
@@ -83,10 +74,10 @@ export default {
   },
   data() {
     return {
-      number: this.myNumber,
+      number: this.sectionId,
       isActive: false,
       timer: null,
-      index: 0
+      index: -1
     }
   },
   watch: {
@@ -130,7 +121,7 @@ export default {
      */
     beatStop() {
       clearInterval(this.timer)
-      this.index = 0
+      this.index = -1
     },
     /**
      * 级数转和弦
@@ -169,19 +160,19 @@ export default {
     display: inline-block;
     text-align: center;
     min-width: 25%;
+    min-height: 20px;
   }
   /*和弦*/
   .chord {
     font-weight: bold;
+    min-height: 20px;
+    line-height:20px;
   }
   /*弹奏记录*/
   .record {
     font-family: SMUS2011a;
   }
-  /*歌词*/
-  .lyric {
-  }
-  .active {
-    background-color: aliceblue;
+  .beaton {
+    background-color: palegreen;
   }
 </style>
