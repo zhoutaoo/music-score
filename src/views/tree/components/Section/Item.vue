@@ -152,7 +152,10 @@ export default {
 </script>
 
 <style rel='stylesheet/scss' scoped>
-
+  @font-face {
+    font-family: 'SMUS2011a';
+    src: url('/static/SMUS2011a.ttf') format('truetype')
+  }
   .section ul {
     margin-block-end: 0;
     margin-block-start: 0;
