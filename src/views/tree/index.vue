@@ -26,10 +26,12 @@
     <div class="header">
       <h1 style="text-align: center">{{ score.name }}</h1>
       <h2>{{ score.enName }}</h2>
-      <div><h4>调式 : {{ score.key }}</h4></div>
-      <div><h4>拍子 : {{ score.beat }}/{{ score.note }}</h4></div>
-      <div><h4>速度 : {{ score.velocity }}</h4></div>
-
+      <div>
+        <h4 style="display: inline-block; width:100px">调式 : {{ score.key }}</h4>
+        <h4 style="display: inline-block; width:100px">拍子 : {{ score.beat }} / {{ score.note }}</h4>
+        <h4 style="display: inline-block; width:100px">速度 : {{ score.velocity }}</h4>
+      </div>
+      <div>顺序：</div>
       <br>
     </div>
     <!--歌谱内容-->
