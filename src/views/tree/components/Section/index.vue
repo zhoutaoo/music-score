@@ -5,7 +5,7 @@
         <!--主副歌段落标识-->
         <div
           v-if="section.type"
-          style="border: dotted; width: 80px; text-align:center; font-size: x-large;font-weight: bold"
+          style="border: dotted; width: 100px; text-align:center; font-size: x-large;font-weight: bold"
         >{{ section.type }}</div>
       </div>
       <Bars

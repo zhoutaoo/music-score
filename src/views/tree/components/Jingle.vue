@@ -1,6 +1,6 @@
 <template>
   <div>
-    <audio ref="audio">
+    <audio ref="audio" defaultPlaybackRate="2">
       <source src="@/assets/da.mp3" type="audio/mpeg">
     </audio>
   </div>
@@ -9,9 +9,18 @@
 <script>
 export default {
   name: 'Jingle',
+  props: {
+    voice: {
+      type: Boolean,
+      default: true
+    }
+  },
   methods: {
     play() {
-      this.$refs.audio.play()
+      if (this.voice) {
+        console.log('audio : da')
+        this.$refs.audio.play()
+      }
     }
   }
 }

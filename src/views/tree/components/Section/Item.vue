@@ -92,6 +92,8 @@ export default {
       // 播放当前小节时，按节拍
       if (this.isActive) {
         this.beatStart()
+      } else {
+        this.beatStop()
       }
     }
   },
@@ -111,11 +113,13 @@ export default {
      */
     beat() {
       this.index++
-      this.$emit('beat')
       console.log('section :' + this.number + '-' + this.index + ' da')
       if (this.index >= this.beats) {
         this.beatStop()
+        return
       }
+      // 节拍事务
+      this.$emit('beat')
     },
     /**
      * 节拍停止

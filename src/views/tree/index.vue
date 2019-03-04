@@ -2,6 +2,7 @@
   <div class="app-container">
     <div>
       <div style="display: inline-block; vertical-align: middle; padding-right: 5px">
+        节拍器：<el-switch v-model="voice"/>
         <el-select v-model="score.key" placeholder="请选择" style="width: 60px;" @change="transChord">
           <el-option
             v-for="item in options"
@@ -17,7 +18,7 @@
         <el-button @click="stop">停止</el-button>
       </el-button-group>
 
-      <jingle v-show="false" ref="jingle"/>
+      <jingle v-show="false" ref="jingle" :voice="voice"/>
 
     </div>
     <br><br>
@@ -67,6 +68,7 @@ export default {
       }],
       activeNumber: -1,
       displayChord: false,
+      voice: true,
       played: false,
       player: null,
       header: '我是header',
